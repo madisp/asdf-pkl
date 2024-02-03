@@ -24,8 +24,6 @@
 Plugin:
 
 ```shell
-asdf plugin add pkl
-# or
 asdf plugin add pkl https://github.com/madisp/asdf-pkl.git
 ```
 
