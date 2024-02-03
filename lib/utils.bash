@@ -4,7 +4,7 @@ set -euo pipefail
 
 GH_REPO="https://github.com/apple/pkl"
 TOOL_NAME="pkl"
-TOOL_TEST="--version"
+TOOL_TEST="pkl --version"
 
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
