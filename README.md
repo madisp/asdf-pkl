@@ -2,7 +2,7 @@
 
 # asdf-pkl [![Build](https://github.com/madisp/asdf-pkl/actions/workflows/build.yml/badge.svg)](https://github.com/madisp/asdf-pkl/actions/workflows/build.yml) [![Lint](https://github.com/madisp/asdf-pkl/actions/workflows/lint.yml/badge.svg)](https://github.com/madisp/asdf-pkl/actions/workflows/lint.yml)
 
-[pkl](https://pkl-lang.org/main/current/index.html) plugin for the [asdf version manager](https://asdf-vm.com).
+[pkl](https://pkl-lang.org/) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
 
@@ -17,8 +17,7 @@
 
 **TODO: adapt this section**
 
-- `bash`, `curl`, `tar`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
+- `bash`, `curl` and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
 
 # Install
 
