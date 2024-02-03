@@ -2,10 +2,9 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for pkl.
 GH_REPO="https://github.com/apple/pkl"
 TOOL_NAME="pkl"
-TOOL_TEST="--version"
+TOOL_TEST="pkl --version"
 
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
@@ -31,18 +30,47 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	# TODO: Adapt this. By default we simply list the tag names from GitHub releases.
 	# Change this function if pkl has other means of determining installable versions.
 	list_github_tags
 }
 
+get_os() {
+	local os
+	os="$(uname | tr '[:upper:]' '[:lower:]')"
+	if [ "$os" = "darwin" ]; then
+		echo "macos"
+	elif [ "$os" = "linux" ]; then
+		# check for Alpine Linux
+		if [ -f /etc/alpine-release ]; then
+			echo "alpine-linux"
+		else
+			echo "linux"
+		fi
+	else
+		echo "$os"
+	fi
+}
+
+get_arch() {
+	local arch
+	arch="$(uname -m)"
+	if [ "$arch" = "x86_64" ]; then
+		echo "amd64"
+	elif [ "$arch" = "arm64" ]; then
+		echo "aarch64"
+	else
+		echo "$arch"
+	fi
+}
+
 download_release() {
-	local version filename url
+	local version filename url os arch
 	version="$1"
 	filename="$2"
+	os="$(get_os)"
+	arch="$(get_arch)"
 
-	# TODO: Adapt the release URL convention for pkl
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$GH_REPO/releases/download/${version}/pkl-${os}-${arch}"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -61,7 +89,6 @@ install_version() {
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-		# TODO: Assert pkl executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
